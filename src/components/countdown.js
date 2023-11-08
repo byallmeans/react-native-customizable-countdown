@@ -289,18 +289,19 @@ class CountDown extends Component {
 
   componentDidMount() {
     this.setTimer();
-    if (this.props.animateSeparator && this.props.showSeparator)
+    if (this.props.animateSeparator && this.props.showSeparator){
       this.startAnimate();
 
     // if (this.props.endingAlert?.animate)
     //   this.alertAnimate();
 
-    AppState.addEventListener('change', this._handleAppStateChange);
+      const subscription = AppState.addEventListener('change', this._handleAppStateChange);
+      subscription.remove();
+    }
   }
 
   componentWillUnmount() {
     clearInterval(this.timer);
-    AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
   render() {
